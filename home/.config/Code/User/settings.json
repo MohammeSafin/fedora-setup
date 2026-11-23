@@ -1,0 +1,34 @@
+{
+    "files.autoSave": "afterDelay",
+    "explorer.confirmDelete": false,
+    "github.copilot.advanced": {
+        "authProvider": "github"
+    },
+    "redhat.telemetry.enabled": true,
+    "[java]": {
+        "editor.defaultFormatter": "redhat.java"
+    },
+    "liveServer.settings.donotShowInfoMsg": true,
+    "[dart]": {
+        "editor.formatOnSave": true,
+        "editor.formatOnType": true,
+        "editor.rulers": [
+            80
+        ],
+        "editor.selectionHighlight": false,
+        "editor.tabCompletion": "onlySnippets",
+        "editor.wordBasedSuggestions": "off"
+    },
+    "git.autofetch": true,
+    "git.enableSmartCommit": true,
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "jdk.runConfig.vmOptions": "--enable-preview --source 21",
+    "go.toolsManagement.autoUpdate": true,
+    "github.copilot.nextEditSuggestions.enabled": true,
+    "jdk.telemetry.enabled": true,
+    "workbench.startupEditor": "none",
+    "claudeCode.preferredLocation": "panel",
+    "claudeCode.useTerminal": true,
+    "terminal.integrated.mouseWheelScrollSensitivity": 3,
+    "terminal.integrated.gpuAcceleration": "off"
+}

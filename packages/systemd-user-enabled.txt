@@ -1,0 +1,12 @@
+dbus-broker.service
+juhradialmx-daemon.service
+obex.service
+systemd-tmpfiles-setup.service
+wireplumber.service
+ydotoold.service
+dbus.socket
+pipewire-pulse.socket
+pipewire.socket
+snapd.session-agent.socket
+grub-boot-success.timer
+systemd-tmpfiles-clean.timer

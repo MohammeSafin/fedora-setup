@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=JuhRadial MX
+Comment=Radial menu for Logitech MX Master mice (opens settings)
+Exec=/home/ms/.local/bin/juhradial-open
+Icon=juhradial-mx
+Terminal=false
+Type=Application
+Categories=Utility;System;Settings;
+Keywords=mouse;logitech;radial;menu;gesture;mx;master;
+StartupNotify=false

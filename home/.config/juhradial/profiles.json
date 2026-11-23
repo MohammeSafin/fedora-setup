@@ -1,0 +1,60 @@
+{
+  "version": 2,
+  "profiles": [
+    {
+      "name": "default",
+      "slices": [
+        {
+          "type": "shortcut",
+          "value": "ctrl+c",
+          "label": "Copy",
+          "icon": "📋"
+        },
+        {
+          "type": "shortcut",
+          "value": "ctrl+v",
+          "label": "Paste",
+          "icon": "📄"
+        },
+        {
+          "type": "shortcut",
+          "value": "ctrl+z",
+          "label": "Undo",
+          "icon": "↩️"
+        },
+        {
+          "type": "shortcut",
+          "value": "ctrl+shift+z",
+          "label": "Redo",
+          "icon": "↪️"
+        },
+        {
+          "type": "shortcut",
+          "value": "ctrl+a",
+          "label": "Select All",
+          "icon": "🔲"
+        },
+        {
+          "type": "shortcut",
+          "value": "ctrl+x",
+          "label": "Cut",
+          "icon": "✂️"
+        },
+        {
+          "type": "shortcut",
+          "value": "ctrl+s",
+          "label": "Save",
+          "icon": "💾"
+        },
+        {
+          "type": "shortcut",
+          "value": "ctrl+w",
+          "label": "Close",
+          "icon": "❌"
+        }
+      ],
+      "icon": "🎯",
+      "description": "Default profile with common shortcuts"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+[Unit]
+Description=ydotool daemon (used by JuhRadial MX for key/volume actions)
+Before=juhradialmx-daemon.service
+
+[Service]
+ExecStart=/usr/bin/ydotoold --socket-path=%t/.ydotool_socket --socket-own=%U:%G
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

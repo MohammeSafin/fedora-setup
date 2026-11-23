@@ -1,0 +1,231 @@
+#!/usr/bin/bash
+# macOS-style app switcher (Cmd+Tab) for Hyprland.
+#
+# Triggered while Alt is held: by Alt+Tab on the keyboard, or by holding the
+# MX Master gesture button, which JuhRadial MX turns into holding Alt+F13
+# (buttons.custom.gesture in ~/.config/juhradial/config.json). Bindings live in
+# ~/.config/hypr/UserConfigs/UserKeybinds.conf.
+#
+#   tap (release quickly)   switch to the previous app, no panel
+#   hold                    panel of apps, most recent first, previous selected
+#   Tab / Shift+Tab, scroll move right / left
+#   release Alt / button    switch to the selected app
+#   click                   switch to the clicked app
+#   Q                       quit the selected app (all of its windows)
+#   Esc                     cancel
+#
+# While the panel is up Hyprland is put in the empty "juhradial-switcher"
+# submap, so Alt+Tab and Alt+scroll reach the panel instead of the usual
+# Hyprland bindings.
+
+# juhradiald starts before Hyprland exports its environment, so commands it
+# launches may lack the Wayland/Hyprland variables; recover them from the
+# runtime dir.
+runtime="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
+if [ -z "$HYPRLAND_INSTANCE_SIGNATURE" ]; then
+  HYPRLAND_INSTANCE_SIGNATURE="$(ls -t "$runtime/hypr" 2>/dev/null | head -1)"
+  export HYPRLAND_INSTANCE_SIGNATURE
+fi
+if [ -z "$WAYLAND_DISPLAY" ]; then
+  for sock in "$runtime"/wayland-[0-9]; do
+    [ -S "$sock" ] && {
+      export WAYLAND_DISPLAY="${sock##*/}"
+      break
+    }
+  done
+fi
+export XDG_RUNTIME_DIR="$runtime"
+# Flatpak apps keep their icons under the flatpak export dirs.
+export XDG_DATA_DIRS="${XDG_DATA_DIRS:-$HOME/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share}"
+
+# One switcher at a time; any other rofi (e.g. the launcher) makes way.
+exec 9>"$runtime/juhradial-switcher.lock"
+flock -n 9 || exit 0
+pkill -x rofi
+
+# Alt key state, read from every input device (the physical keyboard, or
+# ydotoold's virtual one when the mouse button holds it).
+ALT_PY='
+import fcntl, glob, os, sys, time
+EVIOCGKEY = 0x80000000 | (96 << 16) | (ord("E") << 8) | 0x18
+def alt_down():
+    for dev in glob.glob("/dev/input/event*"):
+        try:
+            fd = os.open(dev, os.O_RDONLY | os.O_NONBLOCK)
+        except OSError:
+            continue
+        try:
+            state = fcntl.ioctl(fd, EVIOCGKEY, bytes(96))
+        except OSError:
+            continue
+        finally:
+            os.close(fd)
+        if any(state[k // 8] >> (k % 8) & 1 for k in (56, 100)):  # KEY_LEFTALT, KEY_RIGHTALT
+            return True
+    return False
+'
+
+# Exit 0 while Alt is down.
+alt_held() {
+  python3 -I -c "$ALT_PY"'
+sys.exit(0 if alt_down() else 1)'
+}
+
+# Until process $1 exits: once Alt is up, press Return so it accepts. rofi
+# cannot see this release itself, since Alt was already down when it opened.
+accept_on_alt_release() {
+  python3 -I -c "$ALT_PY"'
+pid = int(sys.argv[1])
+def alive():
+    try:
+        os.kill(pid, 0)
+        return True
+    except OSError:
+        return False
+while alive():
+    if not alt_down():
+        if alive():
+            os.system("ydotool key 28:1 28:0 >/dev/null 2>&1")
+        break
+    time.sleep(0.02)' "$1"
+}
+
+# "name<TAB>icon" for a window class: Name= and Icon= of the matching .desktop
+# file when there is one, otherwise the class itself.
+app_for() {
+  local class="$1" lower="${1,,}" file name icon
+  for dir in "$HOME/.local/share/applications" /usr/share/applications \
+    /var/lib/flatpak/exports/share/applications "$HOME/.local/share/flatpak/exports/share/applications"; do
+    [ -d "$dir" ] || continue
+    file="$dir/$class.desktop"
+    [ -f "$file" ] || file="$dir/$lower.desktop"
+    [ -f "$file" ] || file="$(grep -lis "^StartupWMClass=$class\$" "$dir"/*.desktop 2>/dev/null | head -1)"
+    if [ -n "$file" ] && [ -f "$file" ]; then
+      name="$(grep -m1 '^Name=' "$file" | cut -d= -f2-)"
+      icon="$(grep -m1 '^Icon=' "$file" | cut -d= -f2-)"
+      printf '%s\t%s\n' "${name:-$class}" "${icon:-$lower}"
+      return
+    fi
+  done
+  printf '%s\t%s\n' "$class" "$lower"
+}
+
+# One entry per app (window class), most recently used app first:
+# "class<TAB>address of its most recent window<TAB>all its addresses".
+# Skips scratchpads such as the drop-down terminal.
+load_apps() {
+  mapfile -t apps < <(hyprctl clients -j | jq -r '
+    [.[] | select(.workspace.id > 0 and .mapped)]
+    | group_by(.class)
+    | map(sort_by(.focusHistoryID)
+          | {class: .[0].class, recent: .[0].focusHistoryID,
+             first: .[0].address, all: (map(.address) | join(" "))})
+    | sort_by(.recent)[]
+    | [.class, .first, .all] | @tsv')
+}
+
+focus_app() {
+  local address
+  IFS=$'\t' read -r _ address _ <<<"${apps[$1]}"
+  hyprctl dispatch focuswindow "address:$address" >/dev/null
+}
+
+load_apps
+[ ${#apps[@]} -eq 0 ] && exit 0
+previous=1
+[ ${#apps[@]} -eq 1 ] && previous=0
+
+# A quick tap switches straight back, without showing the panel (like a
+# quick Cmd+Tab).
+for _ in 1 2 3 4; do
+  alt_held || {
+    focus_app "$previous"
+    exit 0
+  }
+  sleep 0.04
+done
+
+hyprctl dispatch submap juhradial-switcher >/dev/null
+trap 'hyprctl dispatch submap reset >/dev/null' EXIT
+
+# rofi reads "label\0icon\x1ficon-name" per line; the NUL cannot live in a
+# bash variable, so entries are printed straight into rofi.
+print_entries() {
+  local class name icon
+  for a in "${apps[@]}"; do
+    IFS=$'\t' read -r class _ <<<"$a"
+    IFS=$'\t' read -r name icon <<<"$(app_for "$class")"
+    printf '%s\0icon\x1f%s\n' "$name" "$icon"
+  done
+}
+
+selected=$previous
+while :; do
+  columns=${#apps[@]}
+  [ "$columns" -gt 8 ] && columns=8
+  rows=$(((${#apps[@]} + columns - 1) / columns))
+
+  result="$runtime/juhradial-switcher.choice"
+  print_entries | rofi -dmenu -format i -show-icons -no-custom \
+    -selected-row "$selected" -hover-select \
+    -theme-str "
+      * { background-color: transparent; text-color: #f2f2f2; }
+      window { location: center; anchor: center; width: $((columns * 136 + 36))px;
+               background-color: rgba(30, 30, 32, 0.78); border: 1px; border-color: rgba(255, 255, 255, 0.14);
+               border-radius: 22px; padding: 16px; }
+      mainbox { children: [ listview ]; border: 0; }
+      listview { columns: $columns; lines: $rows; flow: horizontal; fixed-height: false; spacing: 8px;
+                 scrollbar: false; border: 0; padding: 0; }
+      element { orientation: vertical; padding: 12px 6px 8px; spacing: 8px; border: 0; border-radius: 16px; }
+      element normal.normal, element alternate.normal, element normal.active, element alternate.active
+        { background-color: transparent; }
+      element selected.normal, element selected.active { background-color: rgba(255, 255, 255, 0.16); }
+      element-icon { size: 60px; horizontal-align: 0.5; background-color: transparent; }
+      element-text { horizontal-align: 0.5; background-color: transparent; text-color: transparent; }
+      element-text selected { text-color: #ffffff; }" \
+    -kb-accept-entry 'Return,KP_Enter' \
+    -kb-row-down '' -kb-row-up '' -kb-row-left 'Alt+ISO_Left_Tab,Alt+Shift+Tab,ISO_Left_Tab,Alt+Left,Left' \
+    -kb-row-right 'Alt+Tab,Tab,Alt+Right,Right' -kb-row-tab '' \
+    -kb-element-next '' -kb-element-prev '' \
+    -kb-move-char-back '' -kb-move-char-forward '' -kb-remove-to-eol '' -kb-mode-complete '' \
+    -kb-cancel 'Escape,Alt+Escape' -kb-custom-1 'Alt+q,q' \
+    -ml-row-up 'ScrollUp,Alt+ScrollUp' -ml-row-down 'ScrollDown,Alt+ScrollDown' \
+    -me-select-entry '' -me-accept-entry 'MousePrimary,Alt+MousePrimary' \
+    >"$result" &
+  rofi_pid=$!
+
+  # Return must reach the panel, so wait for it to be up first.
+  for _ in $(seq 40); do
+    hyprctl layers -j | grep -q '"namespace": "rofi"' && break
+    kill -0 "$rofi_pid" 2>/dev/null || break
+    sleep 0.025
+  done
+  accept_on_alt_release "$rofi_pid" &
+
+  wait "$rofi_pid"
+  status=$?
+  choice="$(cat "$result" 2>/dev/null)"
+  rm -f "$result"
+  [ -n "$choice" ] || exit 0
+
+  case $status in
+    0)
+      focus_app "$choice"
+      exit 0
+      ;;
+    10)
+      # Q: quit every window of that app, then keep the panel up while Alt
+      # is still held (like macOS).
+      IFS=$'\t' read -r _ _ all <<<"${apps[$choice]}"
+      for address in $all; do
+        hyprctl dispatch closewindow "address:$address" >/dev/null
+      done
+      sleep 0.3
+      alt_held || exit 0
+      load_apps
+      [ ${#apps[@]} -eq 0 ] && exit 0
+      selected=$((choice < ${#apps[@]} ? choice : ${#apps[@]} - 1))
+      ;;
+    *) exit 0 ;;
+  esac
+done

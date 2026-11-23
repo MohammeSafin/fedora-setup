@@ -1,0 +1,7 @@
+#!/usr/bin/bash
+# Open JuhRadial MX settings, starting the radial-menu overlay first if it
+# is not already running. Used by ~/.local/share/applications/juhradial-mx.desktop.
+if ! pgrep -f '[j]uhradial-overlay.py' >/dev/null 2>&1; then
+    setsid -f /usr/bin/juhradial-mx >/dev/null 2>&1
+fi
+exec /usr/bin/juhradial-settings "$@"

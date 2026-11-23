@@ -1,0 +1,138 @@
+{
+  "haptics": {
+    "enabled": true,
+    "default_pattern": "subtle_collision",
+    "per_event": {
+      "menu_appear": "sharp_state_change",
+      "slice_change": "sharp_state_change",
+      "confirm": "sharp_state_change",
+      "invalid": "sharp_state_change",
+      "window_switch": "sharp_state_change",
+      "monitor_switch": "sharp_state_change"
+    },
+    "debounce_ms": 20,
+    "slice_debounce_ms": 20,
+    "reentry_debounce_ms": 50
+  },
+  "desktop_environment": "auto",
+  "de_defaults_applied": true,
+  "language": "system",
+  "theme": "dracula",
+  "blur_enabled": true,
+  "pointer": {
+    "speed": 9,
+    "acceleration": true,
+    "dpi": 3671
+  },
+  "scroll": {
+    "natural": false,
+    "smooth": true,
+    "smartshift": true,
+    "smartshift_threshold": 42,
+    "mode": "smartshift",
+    "speed": 2
+  },
+  "app": {
+    "start_at_login": true,
+    "show_tray_icon": true
+  },
+  "device_mode": "auto",
+  "radial": {
+    "minimal_mode": false,
+    "outer_radius": null,
+    "inner_radius": null
+  },
+  "radial_menu": {
+    "slices": [
+      {
+        "label": "Play/Pause",
+        "action_id": "play_pause",
+        "type": "exec",
+        "command": "playerctl play-pause",
+        "color": "green",
+        "icon": "media-playback-start-symbolic"
+      },
+      {
+        "label": "New Note",
+        "action_id": "new_note",
+        "type": "exec",
+        "command": "xdg-open",
+        "color": "yellow",
+        "icon": "document-new-symbolic"
+      },
+      {
+        "label": "Lock",
+        "action_id": "lock",
+        "type": "exec",
+        "command": "loginctl lock-session",
+        "color": "red",
+        "icon": "system-lock-screen-symbolic"
+      },
+      {
+        "label": "Settings",
+        "action_id": "settings",
+        "type": "settings",
+        "command": "",
+        "color": "mauve",
+        "icon": "emblem-system-symbolic"
+      },
+      {
+        "label": "Screenshot",
+        "action_id": "screenshot",
+        "type": "exec",
+        "command": "sh -c 'grim -g \"$(slurp)\" - | swappy -f -'",
+        "color": "blue",
+        "icon": "camera-photo-symbolic"
+      },
+      {
+        "label": "Emoji",
+        "action_id": "emoji",
+        "type": "exec",
+        "command": "ibus emoji",
+        "color": "pink",
+        "icon": "face-smile-symbolic"
+      },
+      {
+        "label": "Files",
+        "action_id": "files",
+        "type": "exec",
+        "command": "xdg-open ~",
+        "color": "sapphire",
+        "icon": "folder-symbolic"
+      },
+      {
+        "label": "AI",
+        "action_id": "ai",
+        "type": "submenu",
+        "command": "",
+        "color": "teal",
+        "icon": "applications-science-symbolic"
+      }
+    ],
+    "easy_switch_shortcuts": false,
+    "easy_switch_host_os": [
+      "linux",
+      "unknown",
+      "unknown"
+    ]
+  },
+  "buttons": {
+    "horizontal_scroll": "volume_up",
+    "shift_wheel": "switch_desktop_right",
+    "forward": "forward",
+    "gesture": "custom",
+    "custom": {
+      "gesture": {
+        "kind": "shortcut",
+        "value": "alt+F13",
+        "hold": true,
+        "label": "App Switcher"
+      }
+    }
+  },
+  "thumbwheel": {
+    "mode": "volume",
+    "speed": 1,
+    "invert": true
+  }
+}

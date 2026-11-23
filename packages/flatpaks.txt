@@ -1,0 +1,7 @@
+flathub	com.discordapp.Discord
+flathub	com.getpostman.Postman
+flathub	com.github.tenderowl.frog
+flathub	com.rustdesk.RustDesk
+flathub	com.spotify.Client
+flathub	io.github.Figma_Linux.figma_linux
+flathub	org.telegram.desktop

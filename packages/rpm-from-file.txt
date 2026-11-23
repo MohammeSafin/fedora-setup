@@ -1,0 +1,3 @@
+claude-desktop
+juhradial-mx
+rustdesk

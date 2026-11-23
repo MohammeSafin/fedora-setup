@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Exit immediately if a command fails
+set -e
+
+# Notify user that selection is active
+notify-send "OCR" "Select an area to copy text" -t 1500
+
+# Capture selected region and stream directly to tesseract, then copy to clipboard
+grim -g "$(slurp)" - | tesseract stdin stdout -l eng 2>/dev/null | wl-copy
+
+# Notify user of success
+notify-send "OCR Complete" "Text copied to clipboard!" -t 2000
+

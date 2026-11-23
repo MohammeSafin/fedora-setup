@@ -1,0 +1,32 @@
+[Default Applications]
+inode/directory=code.desktop
+application/x-wayland-gnome-saved-search=thunar.desktop
+application/json=nvim.desktop
+text/plain=nvim.desktop
+x-scheme-handler/postman=Postman.desktop
+text/html=google-chrome.desktop
+x-scheme-handler/http=google-chrome.desktop
+x-scheme-handler/https=google-chrome.desktop
+x-scheme-handler/about=google-chrome.desktop
+x-scheme-handler/unknown=google-chrome.desktop
+x-scheme-handler/claude-cli=claude-code-url-handler.desktop
+application/pdf=com.google.Chrome.desktop
+
+[Added Associations]
+application/yaml=nvim.desktop;
+application/json=nvim.desktop;
+text/plain=code.desktop;nvim.desktop;
+image/png=org.gnome.Loupe.desktop;org.gnome.eog.desktop;
+text/javascript=nvim.desktop;
+inode/directory=nvim.desktop;code.desktop;
+text/html=nvim.desktop;org.mozilla.firefox.desktop;
+application/vnd.debian.binary-package=gnome-software-local-file-packagekit.desktop;xarchiver.desktop;
+application/x-shellscript=nvim.desktop;
+application/zip=xarchiver.desktop;
+application/vnd.dart=code.desktop;
+text/markdown=code.desktop;
+image/jpeg=org.gnome.Loupe.desktop;
+application/x-executable=org.contourterminal.Contour.desktop;
+audio/mpeg=org.gnome.Rhythmbox3.desktop;
+application/vnd.openxmlformats-officedocument.wordprocessingml.document=org.gnome.Nautilus.desktop;
+application/pdf=org.gnome.Evince.desktop;com.google.Chrome.desktop;

@@ -1,0 +1,19 @@
+{
+  "id": "0de2a2a3-81b1-4e4a-bf67-c0672086032c",
+  "name": "New Macro",
+  "description": "",
+  "repeat_mode": "once",
+  "repeat_count": 3,
+  "use_standard_delay": true,
+  "standard_delay_ms": 50,
+  "actions": [
+    {
+      "type": "key_down",
+      "id": "2b297294-0e76-475b-92ce-5a70748a51c5",
+      "key": "Super_L",
+      "keycode": 133,
+      "delay_after_ms": 0
+    }
+  ],
+  "assigned_trigger": null
+}

@@ -1,0 +1,197 @@
+3270 Nerd Font
+Agave Nerd Font
+AnonymicePro Nerd Font
+Arimo Nerd Font
+AurulentSansM Nerd Font
+BigBlueTerm437 Nerd Font
+BigBlueTermPlus Nerd Font
+Bitstream Charter
+BitstromWera Nerd Font
+BlexMono Nerd Font
+C059
+Caladea
+Cantarell
+Carlito
+CaskaydiaCove Nerd Font
+CodeNewRoman Nerd Font
+Comfortaa
+ComicShannsMono Nerd Font
+Courier 10 Pitch
+Cousine Nerd Font
+Cursor
+D050000L
+DaddyTimeMono Nerd Font
+DejaVu Sans
+DejaVuSansM Nerd Font
+Devicons Nerd Font
+Droid Arabic Kufi
+Droid Sans
+Droid Sans Armenian
+Droid Sans Devanagari
+Droid Sans Ethiopic
+Droid Sans Fallback
+Droid Sans Georgian
+Droid Sans Hebrew
+Droid Sans Japanese
+DroidSansM Nerd Font
+Droid Sans Tamil
+Droid Sans Thai
+EnvyCodeR Nerd Font
+FantasqueSansM Nerd Font
+Fira Code
+FiraCode Nerd Font
+FiraMono Nerd Font
+FontAwesome
+Font Awesome 6 Brands
+Font Awesome 6 Free
+GohuFont 11 Nerd Font
+GohuFont 14 Nerd Font
+GohuFont uni11 Nerd Font
+GohuFont uni14 Nerd Font
+GoMono Nerd Font
+Hack Nerd Font
+Hasklug Nerd Font
+HeavyData Nerd Font
+Hurmit Nerd Font
+iMWritingDuo Nerd Font
+iMWritingMono Nerd Font
+iMWritingQuat Nerd Font
+InconsolataGo Nerd Font
+Inconsolata LGC Nerd Font
+Inconsolata Nerd Font
+Iosevka Nerd Font
+IosevkaTerm Nerd Font
+JetBrainsMono Nerd Font
+JetBrainsMonoNL Nerd Font
+Jomolhari
+Lekton Nerd Font
+Liberation Mono
+Liberation Sans
+Liberation Serif
+Lilex Nerd Font
+LiterationMono Nerd Font
+LiterationSans Nerd Font
+LiterationSerif Nerd Font
+M+1Code Nerd Font
+M+1 Nerd Font
+M+2 Nerd Font
+Madan
+M+CodeLat50 Nerd Font
+M+CodeLat60 Nerd Font
+MesloLGLDZ Nerd Font
+MesloLGL Nerd Font
+MesloLGMDZ Nerd Font
+MesloLGM Nerd Font
+MesloLGSDZ Nerd Font
+MesloLGS Nerd Font
+Monofur Nerd Font
+Monoid Nerd Font
+Mononoki Nerd Font
+Montserrat
+Nimbus Mono PS
+Nimbus Roman
+Nimbus Sans
+Nimbus Sans Narrow
+Noto Color Emoji
+NotoMono Nerd Font
+Noto Naskh Arabic
+Noto Sans
+Noto Sans Arabic
+Noto Sans Armenian
+Noto Sans Bengali
+Noto Sans Canadian Aboriginal
+Noto Sans Cherokee
+Noto Sans CJK HK
+Noto Sans CJK JP
+Noto Sans CJK KR
+Noto Sans CJK SC
+Noto Sans CJK TC
+Noto Sans Devanagari
+Noto Sans Ethiopic
+Noto Sans Georgian
+Noto Sans Gujarati
+Noto Sans Gurmukhi
+Noto Sans Hebrew
+Noto Sans Kannada
+Noto Sans Khmer
+Noto Sans Lao
+Noto Sans Math
+Noto Sans Meetei Mayek
+NotoSansM Nerd Font
+Noto Sans Mono
+Noto Sans Mono CJK HK
+Noto Sans Mono CJK JP
+Noto Sans Mono CJK KR
+Noto Sans Mono CJK SC
+Noto Sans Mono CJK TC
+NotoSans Nerd Font
+Noto Sans Ol Chiki
+Noto Sans Oriya
+Noto Sans Sinhala
+Noto Sans Symbols
+Noto Sans Symbols 2
+Noto Sans Tamil
+Noto Sans Telugu
+Noto Sans Thaana
+Noto Sans Thai
+Noto Serif
+Noto Serif Armenian
+Noto Serif Bengali
+Noto Serif CJK HK
+Noto Serif CJK JP
+Noto Serif CJK KR
+Noto Serif CJK SC
+Noto Serif CJK TC
+Noto Serif Devanagari
+Noto Serif Ethiopic
+Noto Serif Georgian
+Noto Serif Gujarati
+Noto Serif Gurmukhi
+Noto Serif Hebrew
+Noto Serif Kannada
+Noto Serif Khmer
+Noto Serif Lao
+NotoSerif Nerd Font
+Noto Serif Oriya
+Noto Serif Sinhala
+Noto Serif Tamil
+Noto Serif Telugu
+Noto Serif Thai
+OpenDyslexicAlt Nerd Font
+OpenDyslexicM Nerd Font
+OpenDyslexic Nerd Font
+Open Sans
+OpenSymbol
+OverpassM Nerd Font
+Overpass Nerd Font
+P052
+Padauk
+PakType Naskh Basic
+ProFont IIx Nerd Font
+ProFontWindows Nerd Font
+ProggyClean CE Nerd Font
+ProggyClean Nerd Font
+ProggyCleanSZ Nerd Font
+Red Hat Display
+Red Hat Text
+RIT Meera New
+RIT Rachana
+RobotoMono Nerd Font
+SauceCodePro Nerd Font
+ShureTechMono Nerd Font
+Source Code Pro
+SpaceMono Nerd Font
+Standard Symbols PS
+STIX
+Symbola
+Symbols Nerd Font
+Terminess Nerd Font
+Tinos Nerd Font
+UbuntuMono Nerd Font
+Ubuntu Nerd Font
+URW Bookman
+URW Gothic
+Utopia
+Vazirmatn
+VictorMono Nerd Font
+Z003

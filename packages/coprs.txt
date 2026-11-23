@@ -1,0 +1,10 @@
+atim/lazydocker
+atim/lazygit
+erikreider/SwayNotificationCenter
+errornointernet/packages
+lihaohong/yazi
+phracek/PyCharm
+scottames/ghostty
+solopasha/hyprland
+tofik/nwg-shell
+wezfurlong/wezterm-nightly
